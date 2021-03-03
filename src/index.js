@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import SearchBar from './SearchBar'
+import PicsList from './PicsList'
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+class App extends React.Component{
+
+    state = {results: []};
+
+    onTermSubmit = async (term) => {
+        const response = await axios.get('https://api.unsplash.com/search/photos', {
+            headers: {
+                'Authorization': 'Client-ID 1fAIwlialrO887w0bq3iyMstZVJWt-d-OQ_JEgtWpxg'
+            },
+            params: {
+                'query': term,
+            }
+        });
+        this.setState({results: response.data.results});
+    }
+
+    render() {
+     return (
+         <div>
+            <SearchBar onTermSubmit={this.onTermSubmit}/>
+            <PicsList results={this.state.results}/>
+        </div>
+     );
+    }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
