@@ -2,7 +2,7 @@
   "name": "pics",
   "version": "0.1.0",
   "private": true,
-  "homepage":  "https://mosest666.github.io/picsSearch/",
+  "homepage":  "https://mosest666.github.io/picsApp/",
   "dependencies": {
     "-": "0.0.1",
     "@testing-library/jest-dom": "^5.11.9",
